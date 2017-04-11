@@ -620,6 +620,18 @@ def ldap_add_assurance(username, assurance):
         raise
 
 
+def ldap_remove_assurance(username, assurance):
+    dn = "uid={username},{ou}".format(username=username, ou=settings.LDAP_PEOPLE_OU)
+    conn = ldap_connect(modify=True)
+    mod_attrs = [(ldap.MOD_DELETE, 'eduPersonAssurance', assurance)]
+
+    try:
+        conn.modify_s(dn, mod_attrs)
+        return True
+    except:
+        raise
+
+
 def convert_group_member_uid(ldapgroup):
     '''
     Takes the LDAP group member string (full LDAP DN) and returns a list of UIDs
