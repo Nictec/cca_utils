@@ -631,8 +631,19 @@ def ldap_remove_assurance(username, assurance):
     except:
         raise
 
+def ldap_get_assurance(username):
+    '''
+    Retrieve user eduPersonAssurance
+    '''
+    data = ldap_get_user_data(username)
 
-def convert_group_member_uid(ldapgroup):
+    if 'eduPersonAssurance' in data:
+        return data["eduPersonAssurance"][0]
+    else:
+        return False
+
+
+def  convert_group_member_uid(ldapgroup):
     '''
     Takes the LDAP group member string (full LDAP DN) and returns a list of UIDs
     '''
