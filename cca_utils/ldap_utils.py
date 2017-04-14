@@ -636,11 +636,9 @@ def ldap_get_assurance(username):
     Retrieve user eduPersonAssurance
     '''
     data = ldap_get_user_data(username)
-
     if 'eduPersonAssurance' in data:
-        return data["eduPersonAssurance"][0]
-    else:
-        return False
+        assurance = data["eduPersonAssurance"][0]
+        return assurance
 
 
 def  convert_group_member_uid(ldapgroup):
